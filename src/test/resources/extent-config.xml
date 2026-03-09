@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <theme>dark</theme>
+        <documentTitle>OrangeHRM Automation Report</documentTitle>
+        <reportName>Execution Report - Cucumber Selenium</reportName>
+        <encoding>UTF-8</encoding>
+        <timelineEnabled>true</timelineEnabled>
+    </configuration>
+</extentreports>
