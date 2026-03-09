@@ -33,11 +33,26 @@ public class DriverFactory {
         return driver;
     }
 
+    public static WebDriver getCurrentDriver() {
+        return driver;
+    }
+
     private static WebDriver createLocalDriver() {
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
+
+        String executionMode = System.getProperty("execution.mode", "local");
+        String ci = System.getenv("CI");
+
+        if ("true".equalsIgnoreCase(ci)) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+        } else {
+            options.addArguments("--start-maximized");
+        }
 
         return new ChromeDriver(options);
     }

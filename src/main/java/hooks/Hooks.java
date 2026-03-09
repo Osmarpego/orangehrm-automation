@@ -5,6 +5,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import utils.DriverFactory;
 
 public class Hooks {
@@ -16,12 +17,10 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) {
+        WebDriver driver = DriverFactory.getCurrentDriver();
 
-        if (scenario.isFailed()) {
-
-            byte[] screenshot = ((TakesScreenshot) DriverFactory.getDriver())
-                    .getScreenshotAs(OutputType.BYTES);
-
+        if (driver != null && scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "Failure Screenshot");
         }
 
